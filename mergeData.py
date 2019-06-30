@@ -1,8 +1,18 @@
 import pandas as pd
+import logging
+import sys
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 DATA_PATH = 'data/'
 FILE_1 = '20190526_PMI_Resi_Transaction.csv'
 FILE_2 = '20190630_PMI_Resi_Transaction.csv'
+
+def markDuplicates( df ):
+    count = 1
+    while sum( df.duplicated() ):
+        logging.info( 'File 1: Round %d, %d duplicates' % ( count, sum( df.duplicated() ) ) )
+        df[ count ] = df.duplicated()
+        count += 1
 
 def main():
     
@@ -11,17 +21,8 @@ def main():
 
     columns = one.columns
 
-    count = 1
-    while sum( one.duplicated() ):
-        print( 'File 1: Round %d, %d duplicates' % ( count, sum( one.duplicated() ) ) )
-        one[ count ] = one.duplicated()
-        count += 1
-
-    count = 1
-    while sum( two.duplicated() ):
-        print( 'File 2: Round %d, %d duplicates' % ( count, sum( two.duplicated() ) ) )
-        two[ count ] = two.duplicated()
-        count += 1
+    markDuplicates( one )
+    markDuplicates( two )
 
     merged = pd.concat( [ one, two ] ).drop_duplicates()
     merged = merged[ columns ]
