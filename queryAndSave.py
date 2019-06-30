@@ -15,6 +15,7 @@ SERVICE = 'PMI_Resi_Transaction'
 HEADERS = [ 'project', 'marketSegment', 'street', 'contractDate', 'areaSqm', 'areaSqft', 'price', 'psf', 'propertyType', 'typeOfArea', 'tenure', 'floorRange', 'typeOfSale', 'district', 'noOfUnits' ]
 
 def getToken( accessKey ):
+    ''' get URA token, which expires daily, given the constant accessKey (valid for 1 year) issued '''
     tokenRes = requests.get( TOKEN_URL, params = { 'txtAcessKey': accessKey } )
     tokenSubres = tokenRes.text[ tokenRes.text.find( 'value=' ): ]
     token = re.match( r'value=\"([0-9a-zA-Z-!@$%^&*()_+|~=`{}\[\]:\";\'<>?,.\/]*)\">', tokenSubres ).groups()[0]

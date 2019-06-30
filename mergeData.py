@@ -8,6 +8,7 @@ FILE_1 = '20190526_PMI_Resi_Transaction.csv'
 FILE_2 = '20190630_PMI_Resi_Transaction.csv'
 
 def markDuplicates( df ):
+    ''' mark duplicate rows in the df so they don't get dropped when drop_duplicates() is called '''
     count = 1
     while sum( df.duplicated() ):
         logging.info( 'File 1: Round %d, %d duplicates' % ( count, sum( df.duplicated() ) ) )
