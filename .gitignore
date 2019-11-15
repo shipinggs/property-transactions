@@ -1,2 +1,9 @@
-/env/*
-/.vscode/*
+.vscode/
+
+.DS_Store
+
+venv/
+data/
+
+.Python
+build/
